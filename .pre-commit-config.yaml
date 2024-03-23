@@ -1,0 +1,19 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v3.2.0
+  hooks:
+  - id: trailing-whitespace
+  - id: end-of-file-fixer
+  - id: check-yaml
+  - id: check-toml
+  - id: check-json
+  - id: check-added-large-files
+  - id: trailing-whitespace
+  - id: no-commit-to-branch
+    args: [--branch, main, --pattern, epic/*, --pattern, integration/*]
+- repo: https://github.com/compilerla/conventional-pre-commit
+  rev: v3.1.0
+  hooks:
+  - id: conventional-pre-commit
+    stages: [commit-msg]
+    args: [--strict, --force-scope, feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert, wip]
