@@ -17,3 +17,8 @@ repos:
   - id: conventional-pre-commit
     stages: [commit-msg]
     args: [--strict, --force-scope, feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert, wip]
+- repo: https://github.com/DevinR528/cargo-sort
+  rev: v1.0.9
+  hooks:
+  - id: cargo-sort
+    args: [--check]
