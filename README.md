@@ -1,5 +1,7 @@
 # My Website
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A personal website showcasing my resume and personality.
 
 ### MSRV
