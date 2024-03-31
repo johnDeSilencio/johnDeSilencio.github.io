@@ -1,9 +1,11 @@
 use leptos::*;
+use leptos_meta::*;
 
 fn main() {
     mount_to_body(|| {
         view! {
-            <App/>
+            <Title text="Nicholas R. Smith" />
+            <App />
         }
     });
 }
