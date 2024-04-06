@@ -1,0 +1,22 @@
+name: Conventional Commit Validation
+
+on:
+  push:
+    branches:
+      - "feature/**"
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - edited
+
+jobs:
+  build:
+    name: Conventional Commit Validation
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - uses: webiny/action-conventional-commits@v1.3.0
+        with:
+          allowed-commit-types: "feat,fix,docs,style,refactor,perf,test,build,ci,chore,revert,wip"
