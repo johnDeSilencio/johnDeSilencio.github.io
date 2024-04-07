@@ -1,0 +1,26 @@
+name: End-to-End Functional Tests
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - edited
+  push:
+    branches:
+      - "main"
+      - "epic/**"
+      - "integration/**"
+
+jobs:
+  build:
+    name: End to End Tests
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+      - run: trunk build
+      - run: geckodriver --port 4444 &
+      - run: trunk serve &
+      - run: sleep 5 && cargo test --test e2e -- --fail-fast
