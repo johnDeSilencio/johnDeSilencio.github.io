@@ -4,6 +4,7 @@ pub mod check_steps;
 use anyhow::Result;
 use cucumber::World;
 use fantoccini::{error::NewSessionError, wd::Capabilities, Client, ClientBuilder};
+use serde_json::{json, Map, Value};
 
 pub const HOST: &str = "http://127.0.0.1:8080";
 
@@ -23,13 +24,28 @@ impl AppWorld {
     }
 }
 
-async fn build_client() -> Result<Client, NewSessionError> {
-    let mut cap = Capabilities::new();
+async fn build_client() -> Result<Client> {
+    let caps = create_capabilities()?;
 
     let client = ClientBuilder::native()
-        .capabilities(cap)
+        .capabilities(caps)
         .connect("http://127.0.0.1:4444")
         .await?;
 
     Ok(client)
+}
+
+fn create_capabilities() -> Result<Map<String, Value>> {
+    let capabilities = json!({
+        "moz:firefoxOptions": {
+            "args": ["-headless"]
+        }
+    });
+
+    let cap_map = capabilities
+        .as_object()
+        .ok_or(anyhow::anyhow!("failed to parse capabilities JSON"))?
+        .to_owned();
+
+    Ok(cap_map)
 }
