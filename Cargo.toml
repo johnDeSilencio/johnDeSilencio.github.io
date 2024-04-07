@@ -5,7 +5,6 @@ edition = "2021"
 homepage = "https://johndesilenc.io"
 keywords = ["terminal", "emulator", "johndesilencio"]
 license = "MIT"
-license-file = "LICENSE"
 name = "smith-oxide"
 readme = "README.md"
 repository = "https://github.com/johnDeSilencio/johnDeSilencio.github.io"
