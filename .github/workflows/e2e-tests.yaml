@@ -14,13 +14,19 @@ on:
       - "integration/**"
 
 jobs:
-  build:
-    name: End to End Tests
+  run-tests:
+    name: Run End to End Tests
     runs-on: self-hosted
+    env:
+      CARGO_HOME: "/media/nicholas/rust/.cargo"
+      RUSTUP_HOME: "/media/nicholas/rust/.rustup"
+      RUSTC_WRAPPER: "/media/nicholas/rust/.cargo/bin/sccache"
+      CARGO_INCREMENTAL: 0
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
-      - run: trunk build
+      - run: cargo rustc --test e2e -- --emit link="./target/debug/deps/e2e"
+      - run: cargo build --target=wasm32-unknown-unknown
       - run: geckodriver --port 4444 &
       - run: trunk serve &
-      - run: sleep 5 && cargo test --test e2e -- --fail-fast
+      - run: sleep 5 && ./target/debug/deps/e2e --fail-fast

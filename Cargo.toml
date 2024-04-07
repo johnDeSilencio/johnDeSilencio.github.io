@@ -23,6 +23,16 @@ pretty_assertions = "1.4.0"
 serde_json = "1.0.115"
 tokio = { version = "1.37.0", features = ["macros", "rt-multi-thread", "time"] }
 
+[profile.dev]
+opt-level = 0
+debug = 0
+codegen-units = 256
+
+[profile.test]
+opt-level = 0
+debug = 0
+codegen-units = 256
+
 [[test]]
 name = "e2e"
 harness = false # Allow Cucumber to print output instead of libtest
