@@ -7,11 +7,27 @@ on:
       - reopened
       - synchronize
       - edited
+    paths:
+      - ".github/workflows/e2e-tests.yaml"
+      - "src/**"
+      - "e2e/**"
+      - "index.html"
+      - "rust-toolchain.toml"
+      - "Cargo.toml"
+      - "Cargo.lock"
   push:
     branches:
       - "main"
       - "epic/**"
       - "integration/**"
+    paths:
+      - ".github/workflows/e2e-tests.yaml"
+      - "src/**"
+      - "e2e/**"
+      - "index.html"
+      - "rust-toolchain.toml"
+      - "Cargo.toml"
+      - "Cargo.lock"
 
 jobs:
   run-tests:
