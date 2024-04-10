@@ -16,7 +16,7 @@ leptos = { version = "0.6.9", features = ["csr", "nightly"] }
 leptos_meta = { version = "0.6.9", features = ["nightly", "csr"] }
 
 [dev-dependencies]
-anyhow = "1.0.81"
+anyhow = "1.0.82"
 cucumber = "0.20.2"
 fantoccini = "0.19.3"
 pretty_assertions = "1.4.0"
