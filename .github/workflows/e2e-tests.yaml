@@ -39,6 +39,8 @@ jobs:
       RUSTC_WRAPPER: "/media/nicholas/rust/.cargo/bin/sccache"
       CARGO_INCREMENTAL: 0
     steps:
+      - name: Cancel Workflow Action
+        uses: styfle/cancel-workflow-action@0.12.1
       - name: Checkout
         uses: actions/checkout@v4.1.1
       - run: cargo rustc --test e2e -- --emit link="./target/debug/deps/e2e"
