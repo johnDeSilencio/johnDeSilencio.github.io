@@ -1,0 +1,28 @@
+name: Markdown Link Checker
+
+on:
+  push:
+    branches:
+      - "feature/**"
+    paths:
+      - "**.md"
+      - "**.html"
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - edited
+    paths:
+      - "**.md"
+      - "**.html"
+
+jobs:
+  build:
+    name: Markdown Link Validation
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - uses: becheran/mlc@v0.16.3
+        with:
+          args: ./
