@@ -23,9 +23,15 @@ jobs:
   build:
     name: Checking For Formatting Violations
     runs-on: self-hosted
+    env:
+      CARGO_HOME: "/media/nicholas/rust/.cargo"
+      RUSTUP_HOME: "/media/nicholas/rust/.rustup"
+      RUSTC_WRAPPER: "/media/nicholas/rust/.cargo/bin/sccache"
+      CARGO_INCREMENTAL: 0
     steps:
       - name: Skip Duplicate Actions
         uses: fkirc/skip-duplicate-actions@v5.3.1
       - name: Checkout
         uses: actions/checkout@v4.1.1
       - run: dprint check --config .dprint.json ./ --allow-no-files
+      - run: cargo fmt --all --check
