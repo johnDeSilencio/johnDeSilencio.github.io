@@ -30,8 +30,12 @@ jobs:
       CARGO_INCREMENTAL: 0
     steps:
       - name: Skip Duplicate Actions
+        id: skip_check
         uses: fkirc/skip-duplicate-actions@v5.3.1
-      - name: Checkout
+      - if: steps.skip_check.outputs.should_skip != "true"
+        name: Checkout
         uses: actions/checkout@v4.1.1
-      - run: dprint check --config .dprint.json ./ --allow-no-files
-      - run: cargo fmt --all --check
+      - if: steps.skip_check.outputs.should_skip != "true"
+        run: dprint check --config .dprint.json ./ --allow-no-files
+      - if: steps.skip_check.outputs.should_skip != "true"
+        run: cargo fmt --all --check

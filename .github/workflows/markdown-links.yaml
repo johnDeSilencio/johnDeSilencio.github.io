@@ -25,5 +25,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Skip Duplicate Actions
+        id: skip_check
         uses: fkirc/skip-duplicate-actions@v5.3.1
-      - run: mlc ./
+      - if: steps.skip_check.outputs.should_skip != "true"
+        run: mlc ./
