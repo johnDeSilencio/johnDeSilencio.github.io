@@ -1,0 +1,29 @@
+name: Markdown Link Checker
+
+on:
+  push:
+    branches:
+      - "feature/**"
+    paths:
+      - ".github/workflows/markdown-links.yaml"
+      - "**.md"
+      - "**.html"
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - edited
+    paths:
+      - ".github/workflows/markdown-links.yaml"
+      - "**.md"
+      - "**.html"
+
+jobs:
+  build:
+    name: Markdown Link Validation
+    runs-on: self-hosted
+    steps:
+      - name: Cancel Workflow Action
+        uses: styfle/cancel-workflow-action@0.12.1
+      - run: mlc ./
