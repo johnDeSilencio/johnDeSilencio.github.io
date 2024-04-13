@@ -29,3 +29,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.1
       - run: dprint check --config .dprint.json ./ --allow-no-files
+      - run: cargo fmt --all --check
