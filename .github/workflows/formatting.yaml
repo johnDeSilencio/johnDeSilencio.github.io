@@ -32,10 +32,10 @@ jobs:
       - name: Skip Duplicate Actions
         id: skip_check
         uses: fkirc/skip-duplicate-actions@v5.3.1
-      - if: steps.skip_check.outputs.should_skip != "true"
+      - if: steps.skip_check.outputs.should_skip != 'true'
         name: Checkout
         uses: actions/checkout@v4.1.1
-      - if: steps.skip_check.outputs.should_skip != "true"
+      - if: steps.skip_check.outputs.should_skip != 'true'
         run: dprint check --config .dprint.json ./ --allow-no-files
-      - if: steps.skip_check.outputs.should_skip != "true"
+      - if: steps.skip_check.outputs.should_skip != 'true'
         run: cargo fmt --all --check
