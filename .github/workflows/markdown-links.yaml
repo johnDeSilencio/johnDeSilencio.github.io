@@ -24,6 +24,6 @@ jobs:
     name: Markdown Link Validation
     runs-on: self-hosted
     steps:
-      - name: Cancel Workflow Action
-        uses: styfle/cancel-workflow-action@0.12.1
+      - name: Skip Duplicate Actions
+        uses: fkirc/skip-duplicate-actions@v5.3.1
       - run: mlc ./

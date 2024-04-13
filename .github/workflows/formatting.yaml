@@ -24,8 +24,8 @@ jobs:
     name: Checking For Formatting Violations
     runs-on: self-hosted
     steps:
-      - name: Cancel Workflow Action
-        uses: styfle/cancel-workflow-action@0.12.1
+      - name: Skip Duplicate Actions
+        uses: fkirc/skip-duplicate-actions@v5.3.1
       - name: Checkout
         uses: actions/checkout@v4.1.1
       - run: dprint check --config .dprint.json ./ --allow-no-files
