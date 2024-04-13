@@ -24,6 +24,11 @@ jobs:
   build:
     name: Checking For Formatting Violations
     runs-on: self-hosted
+    env:
+      CARGO_HOME: "/media/nicholas/rust/.cargo"
+      RUSTUP_HOME: "/media/nicholas/rust/.rustup"
+      RUSTC_WRAPPER: "/media/nicholas/rust/.cargo/bin/sccache"
+      CARGO_INCREMENTAL: 0
     steps:
       - name: Cancel Workflow Action
         uses: styfle/cancel-workflow-action@0.12.1
