@@ -1,0 +1,49 @@
+name: Generate Code Coverage
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - edited
+    paths:
+      - ".github/workflows/code-coverage.yaml"
+      - "src/**"
+      - "rust-toolchain.toml"
+      - "Cargo.toml"
+      - "Cargo.lock"
+  push:
+    branches:
+      - "main"
+      - "epic/**"
+      - "integration/**"
+    paths:
+      - ".github/workflows/code-coverage.yaml"
+      - "src/**"
+      - "rust-toolchain.toml"
+      - "Cargo.toml"
+      - "Cargo.lock"
+
+jobs:
+  generate-coverage:
+    name: Generate Code Coverage
+    runs-on: self-hosted
+    env:
+      CARGO_HOME: "/media/nicholas/rust/.cargo"
+      RUSTUP_HOME: "/media/nicholas/rust/.rustup"
+      RUSTC_WRAPPER: "/media/nicholas/rust/.cargo/bin/sccache"
+      CARGO_INCREMENTAL: 0
+    steps:
+      - name: Skip Duplicate Actions
+        id: skip_check
+        uses: fkirc/skip-duplicate-actions@v5
+      - if: steps.skip_check.outputs.should_skip != 'true'
+        name: Checkout
+        uses: actions/checkout@v4.1.1
+      - if: steps.skip_check.outputs.should_skip != 'true'
+        name: Code Coverage
+        run: cargo tarpaulin --bin smith-oxide --out lcov --output-dir coverage/
+      - if: steps.skip_check.outputs.should_skip != 'true'
+        name: Upload coverage reports to Codecov
+        run: codecov upload-process --fail-on-error --disable-search -n 'code-coverage'-${{ github.run_id }} -t ${{ secrets.CODECOV_TOKEN }} -f coverage/lcov.info
