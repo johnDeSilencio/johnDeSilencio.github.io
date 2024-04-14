@@ -1,6 +1,7 @@
 # My Website
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/MIT)
+[![codecov](https://codecov.io/gh/johnDeSilencio/johnDeSilencio.github.io/graph/badge.svg?token=EB7LWX199G)](https://codecov.io/gh/johnDeSilencio/johnDeSilencio.github.io)
 
 A personal website showcasing my resume and personality.
 
