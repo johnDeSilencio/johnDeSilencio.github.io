@@ -2,6 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/MIT)
 [![codecov](https://codecov.io/gh/johnDeSilencio/johnDeSilencio.github.io/graph/badge.svg?token=EB7LWX199G)](https://codecov.io/gh/johnDeSilencio/johnDeSilencio.github.io)
+![e2e-tests](https://github.com/johnDeSilencio/johnDeSilencio.github.io/actions/workflows/e2e-tests.yaml/badge.svg)
 
 A personal website showcasing my resume and personality.
 
