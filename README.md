@@ -7,10 +7,6 @@
 
 A personal website showcasing my resume and personality.
 
-### MSRV
-
-`1.56.1`
-
 ## Installation
 
 Prerequisites:
