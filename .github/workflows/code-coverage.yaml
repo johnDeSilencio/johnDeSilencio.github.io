@@ -43,7 +43,7 @@ jobs:
         uses: actions/checkout@v4.1.1
       - if: steps.skip_check.outputs.should_skip != 'true'
         name: Code Coverage
-        run: cargo tarpaulin --bin smith-oxide --out lcov --output-dir coverage/
+        run: cargo tarpaulin --bin john-de-silencio --out lcov --output-dir coverage/
       - if: steps.skip_check.outputs.should_skip != 'true'
         name: Upload coverage reports to Codecov
         run: codecov upload-process --fail-on-error --disable-search -n 'code-coverage'-${{ github.run_id }} -t ${{ secrets.CODECOV_TOKEN }} -f coverage/lcov.info

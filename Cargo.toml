@@ -1,5 +1,5 @@
 [package]
-name = "smith-oxide"
+name = "john-de-silencio"
 version = "0.1.0"
 authors = ["Nicholas R. Smith <nicholasrsmith1600@gmail.com>"]
 categories = ["wasm", "command-line-utilities"]
