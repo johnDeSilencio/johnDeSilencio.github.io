@@ -3,6 +3,7 @@ name = "john-de-silencio"
 version = "0.1.0"
 authors = ["Nicholas R. Smith <nicholasrsmith1600@gmail.com>"]
 categories = ["wasm", "command-line-utilities"]
+description = "Personal website of Nicholas R. Smith (@johnDeSilencio)"
 edition = "2021"
 homepage = "https://johndesilenc.io"
 keywords = ["terminal", "emulator", "johndesilencio"]
