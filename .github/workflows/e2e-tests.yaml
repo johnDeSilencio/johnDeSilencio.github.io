@@ -38,6 +38,7 @@ jobs:
       RUSTUP_HOME: "/media/nicholas/rust/.rustup"
       RUSTC_WRAPPER: "/media/nicholas/rust/.cargo/bin/sccache"
       CARGO_INCREMENTAL: 0
+      END_TO_END_TESTS_HEADLESS: "true"
     steps:
       - name: Skip Duplicate Actions
         id: skip_check
