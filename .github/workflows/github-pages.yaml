@@ -1,0 +1,59 @@
+name: Release to GitHub Pages
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - ".github/workflows/github-pages.yaml"
+      - "src/**"
+      - "index.html"
+      - "rust-toolchain.toml"
+      - "Cargo.toml"
+      - "Cargo.lock"
+  # Allows for running this workflow manually from Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: write # for committing to gh-pages branch.
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    name: Release to GitHub Pages
+    timeout-minutes: 10
+    runs-on: self-hosted
+    env:
+      CARGO_HOME: "/media/nicholas/rust/.cargo"
+      RUSTUP_HOME: "/media/nicholas/rust/.rustup"
+      RUSTC_WRAPPER: "/media/nicholas/rust/.cargo/bin/sccache"
+      CARGO_INCREMENTAL: 0
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Skip Duplicate Actions
+        id: skip_check
+        uses: fkirc/skip-duplicate-actions@v5
+      - if: steps.skip_check.outputs.should_skip != 'true'
+        name: Checkout
+        uses: actions/checkout@v4.1.1
+      # - if: steps.skip_check.outputs.should_skip != 'true'
+      #   name: Compile Tailwind CSS Classes
+      #   run: tailwindcss --config tailwind.config.js -i main.css -o dist/compiled.css
+      - if: steps.skip_check.outputs.should_skip != 'true'
+        run: trunk build --release
+      - if: steps.skip_check.outputs.should_skip != 'true'
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - if: steps.skip_check.outputs.should_skip != 'true'
+        name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: "./dist"
+      - if: steps.skip_check.outputs.should_skip != 'true'
+        name: Deploy to GitHub Pages 🚀
+        id: deployment
+        uses: actions/deploy-pages@v3
