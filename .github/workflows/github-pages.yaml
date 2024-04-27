@@ -1,6 +1,19 @@
 name: Release to GitHub Pages
 
 on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - edited
+    paths:
+      - ".github/workflows/github-pages.yaml"
+      - "src/**"
+      - "index.html"
+      - "rust-toolchain.toml"
+      - "Cargo.toml"
+      - "Cargo.lock"
   push:
     branches:
       - "main"
@@ -14,14 +27,11 @@ on:
   # Allows for running this workflow manually from Actions tab
   workflow_dispatch:
 
-permissions:
-  contents: write # for committing to gh-pages branch.
-  pages: write
-  id-token: write
-
 jobs:
   build:
-    name: Release to GitHub Pages
+    # Do dry-run if we are in a PR context
+    if: github.event_name == 'pull_request'
+    name: Build Website
     timeout-minutes: 10
     runs-on: self-hosted
     env:
@@ -29,9 +39,36 @@ jobs:
       RUSTUP_HOME: "/media/nicholas/rust/.rustup"
       RUSTC_WRAPPER: "/media/nicholas/rust/.cargo/bin/sccache"
       CARGO_INCREMENTAL: 0
+    steps:
+      - name: Skip Duplicate Actions
+        id: skip_check
+        uses: fkirc/skip-duplicate-actions@v5
+      - if: steps.skip_check.outputs.should_skip != 'true'
+        name: Checkout
+        uses: actions/checkout@v4.1.1
+      # - if: steps.skip_check.outputs.should_skip != 'true'
+      #   name: Compile Tailwind CSS Classes
+      #   run: tailwindcss --config tailwind.config.js -i main.css -o dist/compiled.css
+      - if: steps.skip_check.outputs.should_skip != 'true'
+        run: trunk build --release
+  build-and-deploy:
+    # Only publish if we have pushed code, not in a PR context
+    if: github.event_name == 'push'
+    name: Build & Deploy Website
+    timeout-minutes: 10
+    runs-on: self-hosted
+    permissions:
+      contents: write # for committing to gh-pages branch.
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      CARGO_HOME: "/media/nicholas/rust/.cargo"
+      RUSTUP_HOME: "/media/nicholas/rust/.rustup"
+      RUSTC_WRAPPER: "/media/nicholas/rust/.cargo/bin/sccache"
+      CARGO_INCREMENTAL: 0
     steps:
       - name: Skip Duplicate Actions
         id: skip_check
