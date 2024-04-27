@@ -40,17 +40,12 @@ jobs:
       RUSTC_WRAPPER: "/media/nicholas/rust/.cargo/bin/sccache"
       CARGO_INCREMENTAL: 0
     steps:
-      - name: Skip Duplicate Actions
-        id: skip_check
-        uses: fkirc/skip-duplicate-actions@v5
-      - if: steps.skip_check.outputs.should_skip != 'true'
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v4.1.1
       # - if: steps.skip_check.outputs.should_skip != 'true'
       #   name: Compile Tailwind CSS Classes
       #   run: tailwindcss --config tailwind.config.js -i main.css -o dist/compiled.css
-      - if: steps.skip_check.outputs.should_skip != 'true'
-        run: trunk build --release
+      - run: trunk build --release
   build-and-deploy:
     # Only publish if we have pushed code, not in a PR context
     if: github.event_name == 'push'
@@ -70,27 +65,19 @@ jobs:
       RUSTC_WRAPPER: "/media/nicholas/rust/.cargo/bin/sccache"
       CARGO_INCREMENTAL: 0
     steps:
-      - name: Skip Duplicate Actions
-        id: skip_check
-        uses: fkirc/skip-duplicate-actions@v5
-      - if: steps.skip_check.outputs.should_skip != 'true'
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v4.1.1
       # - if: steps.skip_check.outputs.should_skip != 'true'
       #   name: Compile Tailwind CSS Classes
       #   run: tailwindcss --config tailwind.config.js -i main.css -o dist/compiled.css
-      - if: steps.skip_check.outputs.should_skip != 'true'
-        run: trunk build --release
-      - if: steps.skip_check.outputs.should_skip != 'true'
-        uses: actions/configure-pages@v5
+      - run: trunk build --release
+      - uses: actions/configure-pages@v5
         with:
           enablement: true
-      - if: steps.skip_check.outputs.should_skip != 'true'
-        name: Upload artifact
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
           path: "./dist"
-      - if: steps.skip_check.outputs.should_skip != 'true'
-        name: Deploy to GitHub Pages 🚀
+      - name: Deploy to GitHub Pages 🚀
         id: deployment
         uses: actions/deploy-pages@v3
