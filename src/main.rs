@@ -2,6 +2,7 @@ use leptos::*;
 use leptos_meta::*;
 
 fn main() {
+    provide_meta_context();
     console_error_panic_hook::set_once();
     mount_to_body(|| {
         view! {
