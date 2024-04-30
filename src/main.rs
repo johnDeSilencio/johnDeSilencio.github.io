@@ -14,5 +14,15 @@ fn main() {
 fn App() -> impl IntoView {
     view! {
         <h1 name="title">{ "Hello world!" }</h1>
+        <div>
+            <CommandInput />
+        </div>
+    }
+}
+
+#[component]
+fn CommandInput() -> impl IntoView {
+    view! {
+        <input />
     }
 }
