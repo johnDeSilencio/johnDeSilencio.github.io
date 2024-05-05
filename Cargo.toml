@@ -8,7 +8,7 @@ edition = "2021"
 homepage = "https://johndesilenc.io"
 keywords = ["terminal", "emulator", "johndesilencio"]
 license = "MIT"
-readme = "README.md"
+readme = "MIT OR Apache-2.0"
 repository = "https://github.com/johnDeSilencio/johnDeSilencio.github.io"
 rust-version = "1.56.1"
 
