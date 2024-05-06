@@ -15,7 +15,7 @@ fn main() {
 #[component]
 fn App() -> impl IntoView {
     view! {
-        <h1 name="title">{ "Hello world!" }</h1>
+        <h1 name="title" class="text-7xl">{ "Hello world!" }</h1>
         <div>
             <CommandInput />
         </div>
