@@ -25,6 +25,6 @@ fn App() -> impl IntoView {
 #[component]
 fn CommandInput() -> impl IntoView {
     view! {
-        <input />
+        <input type="text" aria-label="Command input" />
     }
 }
