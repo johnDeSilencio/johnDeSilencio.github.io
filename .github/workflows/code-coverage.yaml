@@ -13,6 +13,7 @@ on:
       - "rust-toolchain.toml"
       - "Cargo.toml"
       - "Cargo.lock"
+      - "Trunk.toml"
   push:
     branches:
       - "main"
@@ -24,6 +25,7 @@ on:
       - "rust-toolchain.toml"
       - "Cargo.toml"
       - "Cargo.lock"
+      - "Trunk.toml"
 
 jobs:
   generate-coverage:
