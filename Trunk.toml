@@ -5,4 +5,4 @@ ignore = ["e2e/"]
 [[hooks]]
 stage = "pre_build"
 command = "tailwindcss"
-command_arguments = ["-c", "tailwind.config.js", "-i", "style/main.css", "-o", "style/compiled.css"]
+command_arguments = ["-c", "tailwind.config.js", "-i", "style/main.css", "-o", "style/compiled.css", "--minify"]
