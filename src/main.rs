@@ -17,8 +17,16 @@ fn App() -> impl IntoView {
     view! {
         <h1 name="title" class="text-7xl">{ "Hello world!" }</h1>
         <div>
+            <CommandPrompt />
             <CommandInput />
         </div>
+    }
+}
+
+#[component]
+fn CommandPrompt() -> impl IntoView {
+    view! {
+        <span name="prompt" class="ml-2 mr-2">"^ > "</span>
     }
 }
 
