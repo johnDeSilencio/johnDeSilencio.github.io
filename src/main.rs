@@ -32,6 +32,6 @@ fn CommandPrompt() -> impl IntoView {
 #[component]
 fn CommandInput() -> impl IntoView {
     view! {
-        <input type="text" aria-label="Command input" />
+        <input type="text" class="bg-black text-white outline-none" aria-label="Command input" />
     }
 }
