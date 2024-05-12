@@ -35,6 +35,10 @@ opt-level = 0
 debug = 0
 codegen-units = 256
 
+[profile.release]
+lto = true
+opt-level = 's'
+
 [[test]]
 name = "e2e"
 harness = false # Allow Cucumber to print output instead of libtest
