@@ -1,7 +1,10 @@
 use leptos::*;
 use leptos_meta::*;
+use log::{debug, error, info, trace, warn, Level};
 
 fn main() {
+    console_log::init_with_level(Level::Debug)
+        .unwrap_or_else(|_| panic!("Failed to initialize logging"));
     provide_meta_context();
     console_error_panic_hook::set_once();
     mount_to_body(|| {

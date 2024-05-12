@@ -14,8 +14,10 @@ rust-version = "1.56.1"
 
 [dependencies]
 console_error_panic_hook = "0.1.7"
+console_log = { version = "1.0.0", features = ["color"] }
 leptos = { version = "0.6.9", features = ["csr", "nightly"] }
 leptos_meta = { version = "0.6.9", features = ["nightly", "csr"] }
+log = "0.4.21"
 
 [dev-dependencies]
 anyhow = "1.0.82"
