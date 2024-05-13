@@ -8,6 +8,9 @@ module.exports = {
     theme: {
         fontFamily: {
             sans: ["retganon", "sans-serif"]
+        },
+        fontSize: {
+            base: ["24px", "32px"]
         }
     },
     variants: {},

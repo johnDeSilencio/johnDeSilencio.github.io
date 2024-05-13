@@ -76,7 +76,7 @@ fn main() {
 #[component]
 fn App(commands: ReadSignal<Commands>, set_commands: WriteSignal<Commands>) -> impl IntoView {
     view! {
-        <div>
+        <div class="text-base">
             <PreviousCommands commands=commands />
             <div class="flex flex-wrap">
                 <CommandPrompt />
