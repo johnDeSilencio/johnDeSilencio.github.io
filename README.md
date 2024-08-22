@@ -5,7 +5,7 @@
 ![e2e-tests](https://github.com/johnDeSilencio/johnDeSilencio.github.io/actions/workflows/e2e-tests.yaml/badge.svg)
 ![MSRV](https://img.shields.io/badge/MSRV-1.56.1-crimson)
 
-A personal website showcasing my resume and personality.
+A personal website showcasing my resume, personality, and skillset.
 
 ## Installation
 
