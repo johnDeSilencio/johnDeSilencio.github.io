@@ -27,3 +27,8 @@ repos:
   hooks:
   - id: check-gpg-signed
     stages: [post-commit, post-rewrite]
+- repo: https://github.com/johnDeSilencio/gitmoji-pre-commit
+  rev: v0.0.4
+  hooks:
+  - id: gitmoji-pre-commit
+    stages: [commit-msg]
