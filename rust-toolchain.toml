@@ -1,3 +1,15 @@
 [toolchain]
-channel = "nightly-2024-04-09"
-targets = ["wasm32-unknown-unknown"]
+channel = "nightly-2024-10-19"
+components = [
+    "clippy-preview",
+    "rust-analyzer",
+    "rust-docs",
+    "rust-src",
+    "rust-std",
+    "rustfmt-preview",
+]
+targets = [
+    "wasm32-unknown-unknown",
+    "x86_64-unknown-linux-gnu",
+]
+profile = "default"
