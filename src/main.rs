@@ -45,6 +45,25 @@ impl Iterator for Commands {
     }
 }
 
+struct CommandInterpreter {
+    set_commands: WriteSignal<Commands>,
+}
+
+impl CommandInterpreter {
+    pub fn new(set_commands: WriteSignal<Commands>) -> Self {
+        Self { set_commands }
+    }
+
+    pub fn execute(&self, command: String) {
+        match command.as_str() {
+            "clear" => (self.set_commands)(Commands::new()),
+            _ => self
+                .set_commands
+                .update(|commands| commands.push_back(Command::new(command, commands.next_id()))),
+        }
+    }
+}
+
 struct AppRuntime {
     commands: Commands,
 }
@@ -127,12 +146,15 @@ fn CommandInput(set_commands: WriteSignal<Commands>) -> impl IntoView {
     let input_element: NodeRef<Input> = create_node_ref();
     let form_ref: NodeRef<html::Form> = create_node_ref();
 
+    let interpreter = CommandInterpreter::new(set_commands);
+
     let on_submit = move |ev: leptos::ev::SubmitEvent| {
         // stop the page from reloading!
         ev.prevent_default();
 
         let value = input_element().expect("<input> should be mounted").value();
-        set_commands.update(|commands| commands.push_back(Command::new(value, commands.next_id())));
+
+        interpreter.execute(value);
 
         // clear input field
         form_ref().expect("<form> should be mounted").reset();
