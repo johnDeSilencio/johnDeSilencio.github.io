@@ -39,7 +39,7 @@ codegen-units = 256
 
 [profile.release]
 lto = true
-opt-level = 's'
+opt-level = 'z'
 
 [[test]]
 name = "e2e"
