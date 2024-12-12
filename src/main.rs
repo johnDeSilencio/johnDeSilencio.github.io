@@ -1,8 +1,13 @@
 use std::collections::VecDeque;
 
-use leptos::{ev::SubmitEvent, html::Input, *};
+use leptos::component;
+use leptos::html;
+use leptos::html::Input;
+use leptos::prelude::*;
+use leptos::reactive::signal::WriteSignal;
+use leptos::view;
 use leptos_meta::*;
-use log::{debug, error, info, trace, warn, Level};
+use log::Level;
 
 #[derive(Default, Debug, Clone)]
 struct Command {
@@ -82,7 +87,7 @@ fn main() {
     provide_meta_context();
     console_error_panic_hook::set_once();
 
-    let (commands, set_commands) = create_signal(Commands::new());
+    let (commands, set_commands) = signal(Commands::new());
 
     mount_to_body(move || {
         view! {
@@ -130,21 +135,21 @@ fn PreviousCommands(commands: ReadSignal<Commands>) -> impl IntoView {
 #[component]
 fn PreviousCommand(command: String) -> impl IntoView {
     view! {
-        <span name="command" type="text" class="bg-black text-white">{command}</span>
+        <span class="bg-black text-white">{command}</span>
     }
 }
 
 #[component]
 fn CommandPrompt() -> impl IntoView {
     view! {
-        <span name="prompt" class="ml-2 mr-2">"^ > "</span>
+        <span class="ml-2 mr-2">"^ > "</span>
     }
 }
 
 #[component]
 fn CommandInput(set_commands: WriteSignal<Commands>) -> impl IntoView {
-    let input_element: NodeRef<Input> = create_node_ref();
-    let form_ref: NodeRef<html::Form> = create_node_ref();
+    let input_element: NodeRef<Input> = NodeRef::new();
+    let form_ref: NodeRef<html::Form> = NodeRef::new();
 
     let interpreter = CommandInterpreter::new(set_commands);
 
@@ -152,12 +157,16 @@ fn CommandInput(set_commands: WriteSignal<Commands>) -> impl IntoView {
         // stop the page from reloading!
         ev.prevent_default();
 
-        let value = input_element().expect("<input> should be mounted").value();
+        let value = input_element
+            .read()
+            .as_ref()
+            .expect("<input> should be mounted")
+            .value();
 
         interpreter.execute(value);
 
         // clear input field
-        form_ref().expect("<form> should be mounted").reset();
+        form_ref.on_load(|form| form.reset());
     };
 
     view! {
