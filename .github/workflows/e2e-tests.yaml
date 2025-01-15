@@ -36,6 +36,7 @@ jobs:
     name: Run End to End Tests
     runs-on: self-hosted
     env:
+      RUSTC_WRAPPER: "/home/nicholas/.cargo/bin/sccache"
       CARGO_INCREMENTAL: 0
       END_TO_END_TESTS_HEADLESS: "true"
     steps:

@@ -37,6 +37,7 @@ jobs:
     timeout-minutes: 10
     runs-on: self-hosted
     env:
+      RUSTC_WRAPPER: "/home/nicholas/.cargo/bin/sccache"
       CARGO_INCREMENTAL: 0
     steps:
       - name: Checkout
@@ -59,6 +60,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     env:
+      RUSTC_WRAPPER: "/home/nicholas/.cargo/bin/sccache"
       CARGO_INCREMENTAL: 0
     steps:
       - name: Checkout

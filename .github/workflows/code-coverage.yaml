@@ -32,6 +32,7 @@ jobs:
     name: Generate Code Coverage
     runs-on: self-hosted
     env:
+      RUSTC_WRAPPER: "/home/nicholas/.cargo/bin/sccache"
       CARGO_INCREMENTAL: 0
     steps:
       - name: Skip Duplicate Actions
