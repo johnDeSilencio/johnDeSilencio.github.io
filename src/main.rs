@@ -1,3 +1,5 @@
+pub mod map;
+
 use std::collections::VecDeque;
 
 use leptos::component;
@@ -8,6 +10,7 @@ use leptos::reactive::signal::WriteSignal;
 use leptos::view;
 use leptos_meta::*;
 use log::Level;
+use map::Map;
 
 #[derive(Default, Debug, Clone)]
 struct Command {
@@ -103,6 +106,9 @@ fn App() -> impl IntoView {
         <div class="flex flex-wrap gap-4">
             <Terminal commands=commands set_commands=set_commands />
             <Foo />
+        </div>
+        <div>
+            <Map />
         </div>
     }
 }
