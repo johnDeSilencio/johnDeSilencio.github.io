@@ -87,18 +87,28 @@ fn main() {
     provide_meta_context();
     console_error_panic_hook::set_once();
 
-    let (commands, set_commands) = signal(Commands::new());
-
     mount_to_body(move || {
         view! {
             <Title text="Nicholas R. Smith" />
-            <App commands=commands set_commands=set_commands />
+            <App />
         }
     });
 }
 
 #[component]
-fn App(commands: ReadSignal<Commands>, set_commands: WriteSignal<Commands>) -> impl IntoView {
+fn App() -> impl IntoView {
+    let (commands, set_commands) = signal(Commands::new());
+
+    view! {
+        <div class="flex flex-wrap gap-4">
+            <Terminal commands=commands set_commands=set_commands />
+            <Foo />
+        </div>
+    }
+}
+
+#[component]
+fn Terminal(commands: ReadSignal<Commands>, set_commands: WriteSignal<Commands>) -> impl IntoView {
     view! {
         <div class="text-base border-solid border-2 border-white rounded m-1 p-0.5 shadow-2xl shadow-white">
             <PreviousCommands commands=commands />
@@ -111,22 +121,31 @@ fn App(commands: ReadSignal<Commands>, set_commands: WriteSignal<Commands>) -> i
 }
 
 #[component]
-fn PreviousCommands(commands: ReadSignal<Commands>) -> impl IntoView {
+fn Foo() -> impl IntoView {
     view! {
         <div>
+            <h1>This is another thing</h1>
+        </div>
+    }
+}
+
+#[component]
+fn PreviousCommands(commands: ReadSignal<Commands>) -> impl IntoView {
+    view! {
+        <div class="text-base">
             <For
-            each=move || commands.get()
-            // a unique key for each item
-            key=|command| command.id
-            // renders each item to a view
-            children=move |command: Command| {
-                view! {
-                    <div class="flex flex-wrap">
-                        <CommandPrompt />
-                        <PreviousCommand command=command.command />
-                    </div>
+                each=move || commands.get()
+                // a unique key for each item
+                key=|command| command.id
+                // renders each item to a view
+                children=move |command: Command| {
+                    view! {
+                        <div class="flex flex-wrap">
+                            <CommandPrompt />
+                            <PreviousCommand command=command.command />
+                        </div>
+                    }
                 }
-            }
             />
         </div>
     }
@@ -134,16 +153,12 @@ fn PreviousCommands(commands: ReadSignal<Commands>) -> impl IntoView {
 
 #[component]
 fn PreviousCommand(command: String) -> impl IntoView {
-    view! {
-        <span class="bg-black text-white">{command}</span>
-    }
+    view! { <span class="bg-black text-white">{command}</span> }
 }
 
 #[component]
 fn CommandPrompt() -> impl IntoView {
-    view! {
-        <span class="ml-2 mr-2">"^ > "</span>
-    }
+    view! { <span class="ml-2 mr-2">"^ > "</span> }
 }
 
 #[component]
@@ -171,7 +186,12 @@ fn CommandInput(set_commands: WriteSignal<Commands>) -> impl IntoView {
 
     view! {
         <form node_ref=form_ref on:submit=on_submit>
-            <input node_ref=input_element type="text" class="bg-black text-white outline-none" aria-label="Command input" />
+            <input
+                node_ref=input_element
+                type="text"
+                class="bg-black text-white outline-none"
+                aria-label="Command input"
+            />
         </form>
     }
 }
