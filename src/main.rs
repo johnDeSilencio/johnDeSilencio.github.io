@@ -1,8 +1,10 @@
+pub mod biography;
 pub mod bulldog;
 pub mod map;
 
 use std::collections::VecDeque;
 
+use biography::Biography;
 use bulldog::GonzagaLogo;
 use leptos::component;
 use leptos::html;
@@ -105,6 +107,9 @@ fn App() -> impl IntoView {
     let (commands, set_commands) = signal(Commands::new());
 
     view! {
+        <div>
+            <Biography />
+        </div>
         <div class="flex flex-wrap gap-4">
             <Terminal commands=commands set_commands=set_commands />
             <Foo />
