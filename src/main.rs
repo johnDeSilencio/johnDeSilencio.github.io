@@ -1,4 +1,5 @@
 pub mod map;
+pub mod bulldog;
 
 use std::collections::VecDeque;
 
@@ -11,6 +12,7 @@ use leptos::view;
 use leptos_meta::*;
 use log::Level;
 use map::Map;
+use bulldog::GonzagaLogo;
 
 #[derive(Default, Debug, Clone)]
 struct Command {
@@ -109,6 +111,9 @@ fn App() -> impl IntoView {
         </div>
         <div>
             <Map />
+        </div>
+        <div>
+            <GonzagaLogo />
         </div>
     }
 }
