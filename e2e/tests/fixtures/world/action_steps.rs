@@ -1,7 +1,7 @@
 use crate::fixtures::{action, world::AppWorld};
 use anyhow::{Ok, Result};
 use cucumber::when;
-use tokio::time::{sleep, Duration};
+use tokio::time::{Duration, sleep};
 
 #[when("I open the website")]
 async fn i_open_the_website(world: &mut AppWorld) -> Result<()> {
