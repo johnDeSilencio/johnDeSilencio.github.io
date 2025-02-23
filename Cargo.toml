@@ -4,13 +4,13 @@ version = "0.1.0"
 authors = ["Nicholas R. Smith <nicholasrsmith1600@gmail.com>"]
 categories = ["wasm", "command-line-utilities"]
 description = "Personal website of Nicholas R. Smith (@johnDeSilencio)"
-edition = "2021"
+edition = "2024"
 homepage = "https://johndesilenc.io"
 keywords = ["terminal", "emulator", "johndesilencio"]
 license = "MIT"
 readme = "MIT OR Apache-2.0"
 repository = "https://github.com/johnDeSilencio/johnDeSilencio.github.io"
-rust-version = "1.56.1"
+rust-version = "1.85.0"
 
 [dependencies]
 console_error_panic_hook = "0.1.7"
