@@ -5,7 +5,6 @@ use std::path::Path;
 pub fn Map() -> impl IntoView {
     view! {
         <div>
-            {}
             <p
                 style="font-size: 2px; white-space: pre-wrap"
                 class="text-green-500 border-solid border-2 border-white rounded m-1 p-0.5 shadow-2xl shadow-white"
