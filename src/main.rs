@@ -1,8 +1,9 @@
-pub mod map;
 pub mod bulldog;
+pub mod map;
 
 use std::collections::VecDeque;
 
+use bulldog::GonzagaLogo;
 use leptos::component;
 use leptos::html;
 use leptos::html::Input;
@@ -12,7 +13,6 @@ use leptos::view;
 use leptos_meta::*;
 use log::Level;
 use map::Map;
-use bulldog::GonzagaLogo;
 
 #[derive(Default, Debug, Clone)]
 struct Command {
