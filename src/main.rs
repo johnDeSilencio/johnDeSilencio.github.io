@@ -5,7 +5,7 @@ pub mod map;
 
 use biography::Biography;
 use bulldog::GonzagaLogo;
-use command::{Command, CommandInterpreter, Commands};
+use command::{CommandInterpreter, Content, TerminalContent};
 use leptos::component;
 use leptos::html;
 use leptos::html::Input;
@@ -31,14 +31,14 @@ fn main() {
 
 #[component]
 fn App() -> impl IntoView {
-    let (commands, set_commands) = signal(Commands::new());
+    let (terminal_content, set_terminal_content) = signal(TerminalContent::new());
 
     view! {
         <div>
             <Biography />
         </div>
         <div class="flex flex-wrap gap-4">
-            <Terminal commands=commands set_commands=set_commands />
+            <Terminal terminal_content=terminal_content set_terminal_content=set_terminal_content />
         </div>
         <div>
             <Map />
@@ -50,32 +50,51 @@ fn App() -> impl IntoView {
 }
 
 #[component]
-fn Terminal(commands: ReadSignal<Commands>, set_commands: WriteSignal<Commands>) -> impl IntoView {
+fn Terminal(
+    terminal_content: ReadSignal<TerminalContent>,
+    set_terminal_content: WriteSignal<TerminalContent>,
+) -> impl IntoView {
     view! {
         <div class="text-base border-solid border-2 border-white rounded m-1 p-0.5 shadow-2xl shadow-white">
-            <PreviousCommands commands=commands />
+            <PreviousCommands terminal_content=terminal_content />
             <div class="flex flex-wrap">
                 <CommandPrompt />
-                <CommandInput set_commands=set_commands />
+                <CommandInput set_terminal_content=set_terminal_content />
             </div>
         </div>
     }
 }
 
 #[component]
-fn PreviousCommands(commands: ReadSignal<Commands>) -> impl IntoView {
+fn PreviousCommands(terminal_content: ReadSignal<TerminalContent>) -> impl IntoView {
     view! {
         <div class="text-base" id="previous-commands">
             <For
-                each=move || commands.get()
-                // a unique key for each item
-                key=|command| command.id
-                // renders each item to a view
-                children=move |command: Command| {
+                each=move || terminal_content.get()
+                // A unique key for each item
+                key=|content: &Content| {
+                    match content {
+                        Content::Command(cmd) => cmd.id,
+                        Content::CommandOutput(cmd_output) => cmd_output.id,
+                    }
+                }
+                // Renders each item to a view
+                children=move |content: Content| {
                     view! {
                         <div class="flex flex-wrap">
-                            <CommandPrompt />
-                            <PreviousCommand command=command.command />
+                            {match content {
+                                Content::Command(cmd) => {
+                                    view! {
+                                        <CommandPrompt />
+                                        <PreviousCommand command=cmd.command />
+                                    }
+                                        .into_any()
+                                }
+                                Content::CommandOutput(cmd_output) => {
+                                    view! { <PreviousCommand command=cmd_output.output /> }
+                                        .into_any()
+                                }
+                            }}
                         </div>
                     }
                 }
@@ -95,11 +114,11 @@ fn CommandPrompt() -> impl IntoView {
 }
 
 #[component]
-fn CommandInput(set_commands: WriteSignal<Commands>) -> impl IntoView {
+fn CommandInput(set_terminal_content: WriteSignal<TerminalContent>) -> impl IntoView {
     let input_element: NodeRef<Input> = NodeRef::new();
     let form_ref: NodeRef<html::Form> = NodeRef::new();
 
-    let interpreter = CommandInterpreter::new(set_commands);
+    let interpreter = CommandInterpreter::new(set_terminal_content);
 
     let on_submit = move |ev: leptos::ev::SubmitEvent| {
         // stop the page from reloading!
