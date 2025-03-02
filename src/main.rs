@@ -1,80 +1,19 @@
 pub mod biography;
 pub mod bulldog;
+pub mod command;
 pub mod map;
-
-use std::collections::VecDeque;
 
 use biography::Biography;
 use bulldog::GonzagaLogo;
+use command::{Command, CommandInterpreter, Commands};
 use leptos::component;
 use leptos::html;
 use leptos::html::Input;
 use leptos::prelude::*;
-use leptos::reactive::signal::WriteSignal;
 use leptos::view;
 use leptos_meta::{Title, provide_meta_context};
 use log::Level;
 use map::Map;
-
-#[derive(Default, Debug, Clone)]
-struct Command {
-    command: String,
-    id: u32,
-}
-
-impl Command {
-    fn new(command: String, id: u32) -> Self {
-        Self { command, id }
-    }
-}
-
-#[derive(Default, Debug, Clone)]
-struct Commands(VecDeque<Command>);
-
-impl Commands {
-    fn new() -> Self {
-        Self(VecDeque::new())
-    }
-
-    fn next_id(&self) -> u32 {
-        match self.0.back() {
-            // First command. Return 0 as the first index
-            None => 0,
-            Some(command) => command.id + 1,
-        }
-    }
-
-    fn push_back(&mut self, command: Command) {
-        self.0.push_back(command);
-    }
-}
-
-impl Iterator for Commands {
-    type Item = Command;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.0.pop_front()
-    }
-}
-
-struct CommandInterpreter {
-    set_commands: WriteSignal<Commands>,
-}
-
-impl CommandInterpreter {
-    pub fn new(set_commands: WriteSignal<Commands>) -> Self {
-        Self { set_commands }
-    }
-
-    pub fn execute(&self, command: String) {
-        match command.as_str() {
-            "clear" => (self.set_commands)(Commands::new()),
-            _ => self
-                .set_commands
-                .update(|commands| commands.push_back(Command::new(command, commands.next_id()))),
-        }
-    }
-}
 
 fn main() {
     console_log::init_with_level(Level::Debug)
