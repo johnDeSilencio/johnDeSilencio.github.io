@@ -82,6 +82,10 @@ impl CommandInterpreter {
     pub fn execute(&self, command: String) {
         match command.as_str() {
             "clear" => (self.set_commands)(TerminalContent::new()),
+            "whoami" => self.set_commands.update(|commands| {
+                commands.push_back_command(command);
+                commands.push_back_command_output("Nicholas R. Smith".to_string());
+            }),
             _ => self.set_commands.update(|commands| {
                 commands.push_back_command(command.clone());
                 commands.push_back_command_output(format!("ERROR: No such command \"{command}\""));
