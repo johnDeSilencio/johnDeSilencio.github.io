@@ -6,7 +6,7 @@ use cucumber::then;
 async fn is_in_the_title_of_the_website(world: &mut AppWorld, title: String) -> Result<()> {
     let client = &world.client;
 
-    let present = check::title(client, title).await?;
+    let _ = check::title(client, title).await?;
 
     Ok(())
 }

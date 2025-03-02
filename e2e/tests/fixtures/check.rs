@@ -1,8 +1,7 @@
 use crate::fixtures::find;
 
 use anyhow::{Ok, Result};
-use fantoccini::{Client, Locator};
-// use pretty_assertions::assert_eq;
+use fantoccini::Client;
 
 pub async fn title(client: &Client, text: impl Into<String>) -> Result<()> {
     let expected_title_text = text.into();
