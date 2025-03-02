@@ -1,5 +1,4 @@
 use leptos::prelude::*;
-use std::path::Path;
 
 #[component]
 pub fn Map() -> impl IntoView {

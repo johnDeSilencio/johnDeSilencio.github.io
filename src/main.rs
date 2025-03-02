@@ -12,7 +12,7 @@ use leptos::html::Input;
 use leptos::prelude::*;
 use leptos::reactive::signal::WriteSignal;
 use leptos::view;
-use leptos_meta::*;
+use leptos_meta::{Title, provide_meta_context};
 use log::Level;
 use map::Map;
 
@@ -72,18 +72,6 @@ impl CommandInterpreter {
             _ => self
                 .set_commands
                 .update(|commands| commands.push_back(Command::new(command, commands.next_id()))),
-        }
-    }
-}
-
-struct AppRuntime {
-    commands: Commands,
-}
-
-impl AppRuntime {
-    fn new() -> Self {
-        Self {
-            commands: Commands::new(),
         }
     }
 }
