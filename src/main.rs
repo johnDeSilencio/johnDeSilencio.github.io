@@ -39,7 +39,6 @@ fn App() -> impl IntoView {
         </div>
         <div class="flex flex-wrap gap-4">
             <Terminal commands=commands set_commands=set_commands />
-            <Foo />
         </div>
         <div>
             <Map />
@@ -59,15 +58,6 @@ fn Terminal(commands: ReadSignal<Commands>, set_commands: WriteSignal<Commands>)
                 <CommandPrompt />
                 <CommandInput set_commands=set_commands />
             </div>
-        </div>
-    }
-}
-
-#[component]
-fn Foo() -> impl IntoView {
-    view! {
-        <div>
-            <h1>This is another thing</h1>
         </div>
     }
 }
