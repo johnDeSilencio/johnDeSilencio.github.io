@@ -136,7 +136,7 @@ fn Foo() -> impl IntoView {
 #[component]
 fn PreviousCommands(commands: ReadSignal<Commands>) -> impl IntoView {
     view! {
-        <div class="text-base">
+        <div class="text-base" id="previous-commands">
             <For
                 each=move || commands.get()
                 // a unique key for each item
@@ -195,6 +195,7 @@ fn CommandInput(set_commands: WriteSignal<Commands>) -> impl IntoView {
                 type="text"
                 class="bg-black text-white outline-none"
                 aria-label="Command input"
+                id="command-input"
             />
         </form>
     }
