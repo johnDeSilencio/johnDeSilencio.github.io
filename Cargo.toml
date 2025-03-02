@@ -22,7 +22,7 @@ log = "0.4.21"
 [dev-dependencies]
 anyhow = "1.0.82"
 cucumber = "0.21.1"
-fantoccini = "0.21.4"
+fantoccini = { git = "https://github.com/johnDeSilencio/fantoccini.git", branch = "feature/support-numeric-properties" }
 pretty_assertions = "1.4.0"
 serde_json = "1.0.115"
 tokio = { version = "1.37.0", features = ["macros", "rt-multi-thread", "time"] }

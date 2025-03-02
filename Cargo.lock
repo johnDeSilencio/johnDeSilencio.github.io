@@ -645,8 +645,7 @@ dependencies = [
 [[package]]
 name = "fantoccini"
 version = "0.21.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7722aeee9c2be6fa131166990295089d73d973012b758a2208b9ba51af5dd024"
+source = "git+https://github.com/johnDeSilencio/fantoccini.git?branch=feature%2Fsupport-numeric-properties#70633710bf8299db1137f4b4ccd8d9061e996258"
 dependencies = [
  "base64 0.22.1",
  "cookie 0.18.1",
