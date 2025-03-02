@@ -1,5 +1,6 @@
 pub mod action_steps;
 pub mod check_steps;
+pub mod precondition_steps;
 
 use anyhow::Result;
 use cucumber::World;
