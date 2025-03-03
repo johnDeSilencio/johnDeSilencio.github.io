@@ -144,6 +144,7 @@ fn CommandInput(set_terminal_content: WriteSignal<TerminalContent>) -> impl Into
                 class="bg-black text-white outline-none"
                 aria-label="Command input"
                 id="command-input"
+                autocapitalize="none"
             />
         </form>
     }
