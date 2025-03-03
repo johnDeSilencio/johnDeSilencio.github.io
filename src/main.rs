@@ -6,7 +6,7 @@ pub mod map;
 
 use biography::Biography;
 use bulldog::GonzagaLogo;
-use command::{CommandInterpreter, Content, TerminalContent};
+use command::{CommandInterpreter, CommandOutput, Content, TerminalContent};
 use leptos::component;
 use leptos::html;
 use leptos::html::Input;
@@ -41,13 +41,11 @@ fn App() -> impl IntoView {
         <div>
             <Biography />
         </div>
-        <div class="flex flex-wrap gap-4">
+        <div class="flex flex-wrap">
             <Terminal terminal_content=terminal_content set_terminal_content=set_terminal_content />
         </div>
-        <div>
+        <div class="flex flex-wrap items-center justify-center gap-4 my-1">
             <Map />
-        </div>
-        <div>
             <GonzagaLogo />
         </div>
         <div>
@@ -62,9 +60,9 @@ fn Terminal(
     set_terminal_content: WriteSignal<TerminalContent>,
 ) -> impl IntoView {
     view! {
-        <div class="text-base border-solid border-2 border-white rounded m-1 p-0.5 shadow-2xl shadow-white">
+        <div class="bg-black text-base border-solid border-2 border-white rounded m-1 p-0.5 shadow-lg shadow-white w-full">
             <PreviousCommands terminal_content=terminal_content />
-            <div class="flex flex-wrap">
+            <div class="flex flex-wrap w-full">
                 <CommandPrompt />
                 <CommandInput set_terminal_content=set_terminal_content />
             </div>
@@ -98,8 +96,35 @@ fn PreviousCommands(terminal_content: ReadSignal<TerminalContent>) -> impl IntoV
                                         .into_any()
                                 }
                                 Content::CommandOutput(cmd_output) => {
-                                    view! { <PreviousCommand command=cmd_output.output /> }
-                                        .into_any()
+                                    if cmd_output.table {
+                                        view! {
+                                            <table
+                                                class="text-right"
+                                                style="border-collapse: separate; border-spacing: 24px 0"
+                                            >
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">"PID"</th>
+                                                        <th scope="col">"TTY"</th>
+                                                        <th scope="col">"TIME"</th>
+                                                        <th scope="col">"CMD"</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">"153"</th>
+                                                        <td>"tty0"</td>
+                                                        <td>{cmd_output.output}</td>
+                                                        <td>"schweitzer.engineering.labs.go"</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        }
+                                            .into_any()
+                                    } else {
+                                        view! { <PreviousCommand command=cmd_output.output /> }
+                                            .into_any()
+                                    }
                                 }
                             }}
                         </div>
@@ -112,7 +137,7 @@ fn PreviousCommands(terminal_content: ReadSignal<TerminalContent>) -> impl IntoV
 
 #[component]
 fn PreviousCommand(command: String) -> impl IntoView {
-    view! { <span class="bg-transparent text-white">{command}</span> }
+    view! { <span class="bg-transparent text-white px-1">{command}</span> }
 }
 
 #[component]
@@ -148,7 +173,7 @@ fn CommandInput(set_terminal_content: WriteSignal<TerminalContent>) -> impl Into
             <input
                 node_ref=input_element
                 type="text"
-                class="bg-transparent text-white outline-none"
+                class="w-full bg-transparent text-white outline-none"
                 aria-label="Command input"
                 id="command-input"
                 autocapitalize="none"
@@ -160,7 +185,7 @@ fn CommandInput(set_terminal_content: WriteSignal<TerminalContent>) -> impl Into
 #[component]
 fn Footer() -> impl IntoView {
     view! {
-        <div class="flex flex-wrap gap-2 items-center justify-center text-base border-solid border-2 border-white rounded m-1 p-2 shadow-2xl shadow-white">
+        <div class="bg-black text-base flex flex-wrap gap-2 z-auto items-center justify-center border-solid border-2 border-white rounded m-1 p-2 shadow-lg shadow-white relative">
             <GithubLogo />
             <p>"|"</p>
             <LinkedInLogo />

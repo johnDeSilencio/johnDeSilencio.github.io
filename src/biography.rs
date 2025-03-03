@@ -3,7 +3,7 @@ use leptos::prelude::*;
 #[component]
 pub fn Biography() -> impl IntoView {
     view! {
-        <div class="flex flex-wrap gap-4 text-base text-white border-solid border-2 border-white rounded m-1 p-2 shadow-2xl shadow-white">
+        <div class="flex flex-wrap gap-4 text-base text-white border-solid border-2 border-white rounded m-1 p-2 shadow-lg shadow-white">
             <p>"Hello! 👋 My name is Nicholas R. Smith."</p>
             <p>
                 "I am currently a software engineer at Schweitzer Engineering Laboratories working on the "
