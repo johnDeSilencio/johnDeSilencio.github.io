@@ -15,6 +15,7 @@ rust-version = "1.85.0"
 [dependencies]
 console_error_panic_hook = "0.1.7"
 console_log = { version = "1.0.0", features = ["color"] }
+js-sys = "0.3.77"
 leptos = { version = "0.7", features = ["csr", "nightly"] }
 leptos_meta = { version = "0.7" }
 log = "0.4.21"
