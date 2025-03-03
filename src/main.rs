@@ -1,6 +1,7 @@
 pub mod biography;
 pub mod bulldog;
 pub mod command;
+pub mod logos;
 pub mod map;
 
 use biography::Biography;
@@ -13,6 +14,9 @@ use leptos::prelude::*;
 use leptos::view;
 use leptos_meta::{Title, provide_meta_context};
 use log::Level;
+use logos::email::EmailLogo;
+use logos::github::GithubLogo;
+use logos::linkedin::LinkedInLogo;
 use map::Map;
 
 fn main() {
@@ -45,6 +49,9 @@ fn App() -> impl IntoView {
         </div>
         <div>
             <GonzagaLogo />
+        </div>
+        <div>
+            <Footer />
         </div>
     }
 }
@@ -105,7 +112,7 @@ fn PreviousCommands(terminal_content: ReadSignal<TerminalContent>) -> impl IntoV
 
 #[component]
 fn PreviousCommand(command: String) -> impl IntoView {
-    view! { <span class="bg-black text-white">{command}</span> }
+    view! { <span class="bg-transparent text-white">{command}</span> }
 }
 
 #[component]
@@ -141,11 +148,24 @@ fn CommandInput(set_terminal_content: WriteSignal<TerminalContent>) -> impl Into
             <input
                 node_ref=input_element
                 type="text"
-                class="bg-black text-white outline-none"
+                class="bg-transparent text-white outline-none"
                 aria-label="Command input"
                 id="command-input"
                 autocapitalize="none"
             />
         </form>
+    }
+}
+
+#[component]
+fn Footer() -> impl IntoView {
+    view! {
+        <div class="flex flex-wrap gap-2 items-center justify-center text-base border-solid border-2 border-white rounded m-1 p-2 shadow-2xl shadow-white">
+            <GithubLogo />
+            <p>"|"</p>
+            <LinkedInLogo />
+            <p>"|"</p>
+            <EmailLogo />
+        </div>
     }
 }
