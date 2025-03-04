@@ -38,10 +38,10 @@ fn App() -> impl IntoView {
     let (terminal_content, set_terminal_content) = signal(TerminalContent::new());
 
     view! {
-        <div>
+        <div class="m-2">
             <Biography />
         </div>
-        <div class="flex flex-wrap">
+        <div class="m-2">
             <Terminal terminal_content=terminal_content set_terminal_content=set_terminal_content />
         </div>
         <div class="flex flex-wrap items-center justify-center gap-4 my-1">
@@ -60,9 +60,9 @@ fn Terminal(
     set_terminal_content: WriteSignal<TerminalContent>,
 ) -> impl IntoView {
     view! {
-        <div class="bg-black text-base border-solid border-2 border-white rounded m-1 p-0.5 shadow-lg shadow-white w-full">
+        <div class="bg-black text-base border-solid border-2 border-white rounded p-0.5 shadow-lg shadow-white w-full table">
             <PreviousCommands terminal_content=terminal_content />
-            <div class="flex flex-wrap w-full">
+            <div class="flex">
                 <CommandPrompt />
                 <CommandInput set_terminal_content=set_terminal_content />
             </div>
@@ -73,7 +73,7 @@ fn Terminal(
 #[component]
 fn PreviousCommands(terminal_content: ReadSignal<TerminalContent>) -> impl IntoView {
     view! {
-        <div class="text-base" id="previous-commands">
+        <div class="text-base table-row" id="previous-commands">
             <For
                 each=move || terminal_content.get()
                 // A unique key for each item
@@ -86,7 +86,7 @@ fn PreviousCommands(terminal_content: ReadSignal<TerminalContent>) -> impl IntoV
                 // Renders each item to a view
                 children=move |content: Content| {
                     view! {
-                        <div class="flex flex-wrap">
+                        <div class="whitespace-nowrap">
                             {match content {
                                 Content::Command(cmd) => {
                                     view! {
@@ -137,12 +137,12 @@ fn PreviousCommands(terminal_content: ReadSignal<TerminalContent>) -> impl IntoV
 
 #[component]
 fn PreviousCommand(command: String) -> impl IntoView {
-    view! { <span class="bg-transparent text-white px-1">{command}</span> }
+    view! { <span class="bg-transparent text-white">{command}</span> }
 }
 
 #[component]
 fn CommandPrompt() -> impl IntoView {
-    view! { <span class="ml-2 mr-2">"^ > "</span> }
+    view! { <span class="mx-2">"^ >"</span> }
 }
 
 #[component]
@@ -169,7 +169,7 @@ fn CommandInput(set_terminal_content: WriteSignal<TerminalContent>) -> impl Into
     };
 
     view! {
-        <form node_ref=form_ref on:submit=on_submit>
+        <form node_ref=form_ref on:submit=on_submit class="flex-grow">
             <input
                 node_ref=input_element
                 type="text"
