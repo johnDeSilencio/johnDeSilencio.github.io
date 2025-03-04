@@ -145,6 +145,9 @@ impl CommandInterpreter {
             _ => self.set_commands.update(|commands| {
                 commands.push_back_command(command.clone());
                 commands.push_back_command_output(format!("ERROR: No such command \"{command}\""));
+                commands.push_back_command_output(format!(
+                    "(Hint: try running \"help\" to see what commands are available)"
+                ))
             }),
         }
     }
