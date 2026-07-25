@@ -49,3 +49,9 @@ Licensed under either of
 - MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
 
 at your option.
+
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://brainmade.org/white-logo.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://brainmade.org/black-logo.svg">
+    <img align="right" alt="Brain mark." src="https://brainmade.org/black-logo.svg">
+</picture>
